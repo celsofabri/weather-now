@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import Weather from 'containers/Weather';
+import Form from 'components/Form';
 import { getLocation, getWeatherByCity } from 'api';
 
 const App = () => {
 
   const [city, setCity] = useState('');
   const [info, setInfo] = useState({});
-
-  const { handleSubmit, register } = useForm();
 
   const getWeatherInfo = () => {
     getWeatherByCity(city).then((res) => {
@@ -31,24 +30,12 @@ const App = () => {
     });
   }, [city]);
 
-  const onSubmit = (data) => {
-    const { city } = data;
-    getWeatherInfo();
-  }
-
-  console.log('city', city);
-  console.log('info', info);
 
   return (
-    <div>
-      <p>Cidade: <strong>{info?.name || 'Cidade não encontrada'}</strong></p>
-
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="text" placeholder="Cidade" {...register('city')}/>
-        <button type="submit">Buscar</button>
-      </form>
-
-    </div>
+    <React.Fragment>
+      <Weather />
+      <Form info={info} setInfo={setInfo} city={city} setCity={setCity} getWeatherInfo={getWeatherInfo} />
+    </React.Fragment>
   );
 }
 

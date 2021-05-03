@@ -2,10 +2,7 @@ import React from 'react';
 import { StyledSun } from './styled';
 
 const Sun = () => {
-
-  return(
-    <StyledSun />
-  );
-}
+  return <StyledSun />;
+};
 
 export default Sun;
